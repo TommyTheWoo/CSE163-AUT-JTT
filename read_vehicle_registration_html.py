@@ -2,13 +2,14 @@
 Reads the html file of `https://afdc.energy.gov/vehicle-registration` as a .csv
 """
 import pandas as pd
-import requests as rq # used to get .html file from url
+import requests as rq  # used to get .html file from url
+from bs4 import BeautifulSoup  # used to parse .html
 
 def get_html(url: str):
     site = rq.get(url)
     return site.text
 
-def filter_tablular(html: str):
+def filter_tabular(html: str):
     if '<table' in html:
         start = html.index('<table')
         end = html.index('</table>') + 8
@@ -30,14 +31,6 @@ def read_columns(table):
 def read_state_data(table, columns):
     pass
 
-def write_csv(table):
-    # with open('vehicle_registration.csv', "w", encoding="utf-8") as f:
-    pass
-
 
 if __name__ == "__main__":
     url = 'https://afdc.energy.gov/vehicle-registration'
-
-    html = get_html(url)
-    table = filter_tablular(html)
-    
