@@ -1,36 +1,35 @@
 """
-Reads the html file of `https://afdc.energy.gov/vehicle-registration` as a .csv
+Reads the html file of `https://afdc.energy.gov/vehicle-registration` and
+returns a dictionary of tables by year
 """
 import pandas as pd
 import requests as rq  # used to get .html file from url
-from bs4 import BeautifulSoup  # used to parse .html
+from io import StringIO
 
-def get_html(url: str):
-    site = rq.get(url)
-    return site.text
 
-def filter_tabular(html: str):
-    if '<table' in html:
-        start = html.index('<table')
-        end = html.index('</table>') + 8
-    else:
-        return None
-    return html[start:end]
+def html_to_txt(url):
+    html = rq.get(url).text
+    return html
 
-def read_caption(table):
-    if table is None:
-        return None
-    caption_start = table.index('<caption>') + 9
-    caption_end = table.index('</caption>')
-    caption = table[caption_start:caption_end]
-    return caption
 
-def read_columns(table):
-    pass
+def parse_html(html):
+    table = pd.read_html(StringIO(html))[0]
+    return table
 
-def read_state_data(table, columns):
-    pass
+
+def merge_by_year(url):
+    tables = {}
+    for i in range(2016, 2026):
+        html = html_to_txt(f"{url}?year={i}")
+        tables[i] = (parse_html(html))
+    return tables
+
+def main():
+    url = 'https://afdc.energy.gov/vehicle-registration'
+    all_tables = merge_by_year(url)
+    return all_tables
+        
 
 
 if __name__ == "__main__":
-    url = 'https://afdc.energy.gov/vehicle-registration'
+    main()
