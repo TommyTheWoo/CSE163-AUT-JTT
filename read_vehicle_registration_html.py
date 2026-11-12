@@ -28,7 +28,6 @@ def main():
     url = 'https://afdc.energy.gov/vehicle-registration'
     all_tables = merge_by_year(url)
     return all_tables
-        
 
 
 if __name__ == "__main__":
