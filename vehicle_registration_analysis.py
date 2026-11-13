@@ -37,6 +37,9 @@ def plot_totals_all():
     plt.legend()
     plt.savefig('totals_by_year.png', bbox_inches='tight')
 
+def main():
+    pass
+
 
 if __name__ == '__main__':
     main()
