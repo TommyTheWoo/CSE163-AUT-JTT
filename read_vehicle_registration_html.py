@@ -21,7 +21,13 @@ def merge_by_year(url):
     tables = {}
     for i in range(2016, 2026):
         html = html_to_txt(f"{url}?year={i}")
-        tables[i] = (parse_html(html))
+        table = parse_html(html)
+        table = table.rename(columns={'Electric (EV)': 'EV',
+                                    'Plug-In Hybrid Electric (PHEV)': 'PHEV',
+                                    'Hybrid Electric (HEV)': 'HEV'})
+        table = table[['State', 'EV', 'PHEV', 'HEV', 'Gasoline']]
+        table = table[table['State'] != 'United States']
+        tables[i] = table
     return tables
 
 def main():
@@ -31,4 +37,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    pass
