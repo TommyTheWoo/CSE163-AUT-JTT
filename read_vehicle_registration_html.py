@@ -30,6 +30,7 @@ def merge_by_year(url):
         tables[i] = table
     return tables
 
+
 def main():
     url = 'https://afdc.energy.gov/vehicle-registration'
     all_tables = merge_by_year(url)
