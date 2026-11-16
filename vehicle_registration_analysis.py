@@ -20,13 +20,18 @@ def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax):
     ax.plot(years, means, label=col)
 
 
-def plot_states_by_year():
-    pass
+def plot_states_by_year(data, state, year):
+    df = data[year]
+    sns.catplot(df[df['State'] == state], kind='bar')
+    plt.title(f'Fuel type distribution in {state}')
+    plt.xlabel('Fuel type')
+    plt.ylabel('Amount registered (log)')
+    plt.yscale('log')
+    plt.savefig(f'{state.lower()}_registered_vehicle_types.png', bbox_inches='tight')
 
 
-def plot_totals_all():
+def plot_totals_all(data):
     sns.set_theme()
-    data = rvrh.main()
     fig, ax = plt.subplots(1, figsize=(15, 7))
     for col in ['EV', 'PHEV', 'HEV', 'Gasoline']:
         plot_totals_by_year(data, col, ax)
@@ -38,8 +43,9 @@ def plot_totals_all():
     plt.savefig('totals_by_year.png', bbox_inches='tight')
 
 def main():
-    pass
-
+    data = rvrh.main()
+    plot_totals_all(data)
+    plot_states_by_year(data, 'Washington', 2020)
 
 if __name__ == '__main__':
     main()
