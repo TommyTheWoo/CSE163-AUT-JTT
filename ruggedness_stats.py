@@ -25,7 +25,7 @@ def state_road_TRI_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> N
     plt.title(f'States ranked by mean road TRI (Terrain Ruggedness Index) ')
     plt.ylabel('State')
     plt.xlabel('Mean')
-    plt.savefig('images/scatter_plot_road_TRI.png', bbox_inches='tight')
+    plt.savefig('images/TRI_images/scatter_plot_road_TRI.png', bbox_inches='tight')
 
 def state_area_TRI_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> None:
     stats = stats.reset_index()
@@ -34,7 +34,7 @@ def state_area_TRI_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> N
     plt.title(f'States ranked by mean area TRI (Terrain Ruggedness Index) ')
     plt.ylabel('State')
     plt.xlabel('Mean')
-    plt.savefig('images/scatter_plot_area_TRI.png', bbox_inches='tight')
+    plt.savefig('images/TRI_images/scatter_plot_area_TRI.png', bbox_inches='tight')
 
 def main():
     df = read_ruggedness_data('(read)ruggedness-scales-2020-tracts.xlsx',
