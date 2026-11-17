@@ -3,21 +3,30 @@ Reads the html file of `https://afdc.energy.gov/vehicle-registration` and
 returns a dictionary of tables by year
 """
 import pandas as pd
-import requests as rq  # used to get .html file from url
+import requests as rq
 from io import StringIO
 
 
 def html_to_txt(url):
+    '''
+    Retrieves html file of a website.
+    '''
     html = rq.get(url).text
     return html
 
 
 def parse_html(html):
+    '''
+    Parses html file and isolates the table data.
+    '''
     table = pd.read_html(StringIO(html))[0]
     return table
 
 
 def merge_by_year(url):
+    '''
+    Returns a dictionary of tables of vehicle registration data with years as keys.
+    '''
     tables = {}
     for i in range(2016, 2026):
         html = html_to_txt(f"{url}?year={i}")
@@ -38,4 +47,4 @@ def main():
 
 
 if __name__ == "__main__":
-    pass
+    main()
