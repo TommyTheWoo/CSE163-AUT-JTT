@@ -40,7 +40,7 @@ def merged(data: pd.DataFrame, data2: dict[pd.DataFrame], year: int) -> pd.DataF
     return pd.merge(initial, data2[year], on='State', how='inner')
 
 
-def plot_reg_transit_all(data, data2, year):
+def plot_reg_transit(data, data2, year):
     df = merged(data, data2, year)
     fuels = ['EV', 'PHEV', 'HEV', 'Gasoline']
     total = df[fuels].sum(axis=1)
@@ -53,8 +53,9 @@ def plot_reg_transit_all(data, data2, year):
                     scatter_kws={'s': 3, 'alpha': 0.6})
     ax.set_xlabel('Share of registrations (z-score)')
     ax.set_ylabel(f'Transit ridership, {year} (unlinked trips)')
+    ax.set_title(f'Public transit ridership against vehicle fuel type proportions (z-scored) by state, {year}')
     ax.legend()
-    fig.savefig('hello.png', bbox_inches='tight')
+    fig.savefig('transit_registration_regression.png', bbox_inches='tight')
 
 def plot_corr_over_time(data, data2):
     years = list(range(2016, 2026))
@@ -64,6 +65,7 @@ def plot_corr_over_time(data, data2):
         ax.plot(results.index, results[fuel], label=fuel)
     ax.set_xlabel('Year')
     ax.set_ylabel('Pearson r (fuel share vs. transit ridership)')
+    ax.set_title(f'Correlation of vehicle fuel type and ridership over time')
     ax.legend()
     fig.savefig('corr_over_time.png', bbox_inches='tight')
     plt.close(fig)
@@ -81,7 +83,7 @@ def correlations(data, data2, year):
 
 def main():
     sns.set_theme()
-    plot_reg_transit_all(transit_data, vehicle_data, 2020)
+    plot_reg_transit(transit_data, vehicle_data, 2020)
     plot_corr_over_time(transit_data, vehicle_data,)
     print(correlations(transit_data, vehicle_data, 2020))
 
