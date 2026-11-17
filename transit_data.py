@@ -10,13 +10,18 @@ DATA = "September 2026 Complete Monthly Ridership (with adjustments and estimate
 FIRST = 2016
 LAST = 2025
 
+KEEP_COLUMNS = ["NTD ID", "Agency", "Mode/Type of Service Status",
+                "Reporter Type", "Mode", "TOS", "3 Mode"]
+
+
 def read_transit(data: str) -> pd.DataFrame:
+    """Yearly ridership per agency/mode with HQ state, FIRST to LAST."""
     master = pd.read_excel(data, sheet_name="Master")
     years = pd.read_excel(data, sheet_name="Calendar Year UPT")
-    years = years.dropna(subset=["NTD ID"])   # drops blank row
-    keep = ["NTD ID", "Mode", "TOS", "HQ State",
-            "Service Area Population"]
-    return years.merge(master[keep], on=["NTD ID", "Mode", "TOS"], how="left")
+    years = years.dropna(subset=["NTD ID"])
+    states = master[["NTD ID", "Mode", "TOS", "HQ State"]]
+    merged = years.merge(states, on=["NTD ID", "Mode", "TOS"], how="left")
+    return merged[KEEP_COLUMNS + ["HQ State"] + list(range(FIRST, LAST + 1))]
 
 
 def state_year_totals(df: pd.DataFrame, first: int, last: int) -> pd.DataFrame:
