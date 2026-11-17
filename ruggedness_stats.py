@@ -21,26 +21,28 @@ def area_TRI_stats(df: pd.DataFrame, state_col: str, area_TRI: str) -> pd.DataFr
 def state_road_TRI_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> None:
     stats = stats.reset_index()
     plt.figure(figsize=(8, 12))
-    road_plot = sns.scatterplot(data=stats, x=stat_col, y=state_col)
-    plt.title(f'States ranked by mean road TRI (Terrain Ruggedness Index) ')
+    sns.scatterplot(data=stats, x=stat_col, y=state_col)
+    plt.title('States ranked by mean road TRI (Terrain Ruggedness Index)', fontweight='bold')
     plt.ylabel('State')
-    plt.xlabel('Mean')
+    plt.xlabel('Total mean road TRI across 2020 census tracts (meters)')
     plt.savefig('images/TRI_images/scatter_plot_road_TRI.png', bbox_inches='tight')
 
 def state_area_TRI_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> None:
     stats = stats.reset_index()
     plt.figure(figsize=(9, 12))
-    road_plot = sns.scatterplot(data=stats, x=stat_col, y=state_col)
-    plt.title(f'States ranked by mean area TRI (Terrain Ruggedness Index) ')
+    sns.scatterplot(data=stats, x=stat_col, y=state_col)
+    plt.title('States ranked by mean area TRI (Terrain Ruggedness Index)', fontweight='bold')
     plt.ylabel('State')
-    plt.xlabel('Mean')
+    plt.xlabel('Total mean area TRI across 2020 census tracts (meters)')
     plt.savefig('images/TRI_images/scatter_plot_area_TRI.png', bbox_inches='tight')
 
 def main():
     df = read_ruggedness_data('(read)ruggedness-scales-2020-tracts.xlsx',
                                'Ruggedness Scales 2020 Data')
     road_summary = road_TRI_stats(df, 'StateName20', 'RoadTRI_Mean')
+    road_summary.to_csv('road_summary.csv')
     area_summary = area_TRI_stats(df, 'StateName20', 'AreaTRI_Mean')
+    area_summary.to_csv('area_summary.csv')
     state_road_TRI_plot(road_summary, 'StateName20', 'mean')
     state_area_TRI_plot(area_summary, 'StateName20', 'mean')
 
