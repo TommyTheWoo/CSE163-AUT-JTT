@@ -7,7 +7,7 @@ import requests as rq
 from io import StringIO
 
 
-def html_to_txt(url):
+def html_to_txt(url: str) -> str:
     '''
     Retrieves html file of a website.
     '''
@@ -15,7 +15,7 @@ def html_to_txt(url):
     return html
 
 
-def parse_html(html):
+def parse_html(html: str) -> pd.DataFrame:
     '''
     Parses html file and isolates the table data.
     '''
@@ -23,7 +23,7 @@ def parse_html(html):
     return table
 
 
-def merge_by_year(url):
+def merge_by_year(url: str) -> dict[pd.DataFrame]:
     '''
     Returns a dictionary of tables of vehicle registration data with years as keys.
     '''

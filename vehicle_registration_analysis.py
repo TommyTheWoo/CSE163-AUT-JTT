@@ -5,17 +5,17 @@ Analysis of the light-duty vehicle registration data.
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import read_vehicle_registration_html as rvrh
+import vehicle_registration_data as rvrh
 
-def statistics(df: pd.DataFrame):
+def statistics(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Returns a seven number summary (mean, stdev, and percentiles)
     of a dataframe.
     '''
-    return df.describe()
+    return df.describe().drop('count')
 
 
-def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax):
+def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax) -> None:
     '''
     Produces a plot representing the total count of vehicles of a certain
     fuel type over years.
@@ -28,7 +28,7 @@ def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax):
     ax.plot(years, means, label=col)
 
 
-def plot_states_by_year(data, state, year):
+def plot_states_by_year(data, state, year) -> None:
     '''
     Produces a plot representing the the distribution of vehicles with fuel
     types EV, PHEV, HEV, and Gasoline for a given state and year.
@@ -42,7 +42,7 @@ def plot_states_by_year(data, state, year):
     plt.savefig(f'{state.lower()}_registered_vehicle_types.png', bbox_inches='tight')
 
 
-def plot_totals_all(data):
+def plot_totals_all(data) -> None:
     '''
     Produces a plot representing the total count of vehicles of fuel types
     EV, PHEV, HEV, and Gasoline over years.
@@ -62,8 +62,7 @@ def main():
     data = rvrh.main()
     plot_totals_all(data)
     plot_states_by_year(data, 'Washington', 2020)
-    df = data[2025]
-    print(df[['EV','PHEV','HEV','Gasoline']].describe())
+    return data
 
 if __name__ == '__main__':
     main()
