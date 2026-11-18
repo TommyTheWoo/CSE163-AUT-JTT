@@ -25,6 +25,7 @@ def contains_na(data: dict[pd.DataFrame]) -> None:
     else:
         print('data contains NaN values.')
 
+
 def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax) -> None:
     '''
     Produces a plot representing the total count of vehicles of a certain
