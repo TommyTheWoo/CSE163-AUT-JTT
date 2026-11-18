@@ -6,11 +6,18 @@ sns.set_theme(style="darkgrid", palette="muted")
 
 
 def read_ruggedness_data(dataset_filepath: str, sheet: str) -> pd.DataFrame:
+    """
+    Reads the ruggedness Scales 2020 excel sheet as a DataFrame.
+    """
     return pd.read_excel(dataset_filepath, sheet_name=sheet, header=1)
 
 
 def road_tri_stats(df: pd.DataFrame, state_col: str,
                    road_tri: str) -> pd.DataFrame:
+    """
+    Returns the statistics of the Road_TRI_Mean column.
+    States are sorted by mean in descending order.
+    """
     road_tri_desc = (df.groupby(state_col)[road_tri].describe())
     road_stats = road_tri_desc.sort_values(by='mean', ascending=False)
     return road_stats
@@ -18,6 +25,10 @@ def road_tri_stats(df: pd.DataFrame, state_col: str,
 
 def area_tri_stats(df: pd.DataFrame, state_col: str,
                    area_TRI: str) -> pd.DataFrame:
+    """
+    Returns the statistics of the Area_TRI_Mean column.
+    States are sorted by mean in descending order.  
+    """
     area_tri_desc = (df.groupby(state_col)[area_TRI].describe())
     area_stats = area_tri_desc.sort_values(by='mean', ascending=False)
     return area_stats
@@ -25,6 +36,10 @@ def area_tri_stats(df: pd.DataFrame, state_col: str,
 
 def state_road_tri_plot(stats: pd.DataFrame, state_col: str,
                         stat_col: str) -> None:
+    """
+    Creates a scatter plot that shows all U.S. states
+    ranked by mean road TRI.
+    """
     stats = stats.reset_index()
     plt.figure(figsize=(8, 12))
     sns.scatterplot(data=stats, x=stat_col, y=state_col)
@@ -38,6 +53,11 @@ def state_road_tri_plot(stats: pd.DataFrame, state_col: str,
 
 def state_area_tri_plot(stats: pd.DataFrame, state_col: str,
                         stat_col: str) -> None:
+    """
+    Creates a scatter plot that shows all U.S. states
+    ranked by mean area TRI.
+    """
+
     stats = stats.reset_index()
     plt.figure(figsize=(9, 12))
     sns.scatterplot(data=stats, x=stat_col, y=state_col)
