@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import vehicle_registration_data as rvrh
 
+
 def statistics(df: pd.DataFrame) -> pd.DataFrame:
     '''
     Returns a seven number summary (mean, stdev, and percentiles)
@@ -39,7 +40,8 @@ def plot_states_by_year(data, state, year) -> None:
     plt.xlabel('Fuel type')
     plt.ylabel('Amount registered (log)')
     plt.yscale('log')
-    plt.savefig(f'{state.lower()}_registered_vehicle_types.png', bbox_inches='tight')
+    plt.savefig(f'{state.lower()}_registered_vehicle_types.png',
+                bbox_inches='tight')
 
 
 def plot_totals_all(data) -> None:
@@ -58,11 +60,13 @@ def plot_totals_all(data) -> None:
     plt.legend()
     plt.savefig('totals_by_year.png', bbox_inches='tight')
 
+
 def main():
     data = rvrh.main()
     plot_totals_all(data)
     plot_states_by_year(data, 'Washington', 2020)
     return data
+
 
 if __name__ == '__main__':
     main()
