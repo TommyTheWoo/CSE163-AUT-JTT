@@ -16,6 +16,15 @@ def statistics(df: pd.DataFrame) -> pd.DataFrame:
     return df.describe().drop('count')
 
 
+def contains_na(data: dict[pd.DataFrame]) -> None:
+    na_count = 0
+    for key in data:
+        na_count += data[key].isnull().sum().sum()
+    if na_count == 0:
+        print('data contains no NaN values.')
+    else:
+        print('data contains NaN values.')
+
 def plot_totals_by_year(data: dict[pd.DataFrame], col: str, ax) -> None:
     '''
     Produces a plot representing the total count of vehicles of a certain
@@ -63,6 +72,7 @@ def plot_totals_all(data) -> None:
 
 def main():
     data = rvrh.main()
+    contains_na(data)
     plot_totals_all(data)
     plot_states_by_year(data, 'Washington', 2020)
     return data
