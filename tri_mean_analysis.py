@@ -13,10 +13,12 @@ def road_tri_stats(df: pd.DataFrame, state_col: str, road_tri: str) -> pd.DataFr
     road_stats = road_tri_desc.sort_values(by='mean', ascending=False)
     return road_stats
 
+
 def area_tri_stats(df: pd.DataFrame, state_col: str, area_tri: str) -> pd.DataFrame:
     area_tri_desc = (df.groupby(state_col)[area_tri].describe())
     area_stats = area_tri_desc.sort_values(by='mean', ascending=False)
     return area_stats
+
 
 def state_road_tri_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> None:
     stats = stats.reset_index()
@@ -27,6 +29,7 @@ def state_road_tri_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> N
     plt.xlabel('Mean')
     plt.savefig('scatter_plot_road_tri.png', bbox_inches='tight')
 
+
 def state_area_tri_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> None:
     stats = stats.reset_index()
     plt.figure(figsize=(9, 12))
@@ -36,6 +39,7 @@ def state_area_tri_plot(stats: pd.DataFrame, state_col: str, stat_col: str )-> N
     plt.xlabel('Mean')
     plt.savefig('scatter_plot_area_tri.png', bbox_inches='tight')
 
+
 def main():
     df = read_ruggedness_data('(read)ruggedness-scales-2020-tracts.xlsx',
                                'Ruggedness Scales 2020 Data')
@@ -43,8 +47,6 @@ def main():
     area_summary = area_tri_stats(df, 'StateName20', 'AreaTRI_Mean')
     state_road_tri_plot(road_summary, 'StateName20', 'mean')
     state_area_tri_plot(area_summary, 'StateName20', 'mean')
-
-
 
 
 if __name__ == '__main__':
