@@ -83,6 +83,7 @@ def main() -> None:
 
     plot_national_trend(table)
     plot_top_states(table, LAST, 10)
+    return table
 
 
 if __name__ == "__main__":
