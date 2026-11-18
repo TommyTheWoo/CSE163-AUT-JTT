@@ -69,7 +69,7 @@ def plot_reg_transit(data, data2, year):
     ax.set_title(f'Public transit ridership against vehicle fuel type \
                  proportions (z-scored) by state, {year}')
     ax.legend()
-    #fig.savefig('transit_registration_regression.png', bbox_inches='tight')
+    plt.savefig('transit_registration_regression.png', bbox_inches='tight')
 
 
 def plot_corr_over_time(data, data2):
@@ -86,8 +86,7 @@ def plot_corr_over_time(data, data2):
     ax.set_ylabel('Pearson r (fuel share vs. transit ridership)')
     ax.set_title('Correlation of vehicle fuel type and ridership over time')
     ax.legend()
-    #fig.savefig('corr_over_time.png', bbox_inches='tight')
-    plt.close(fig)
+    plt.savefig('corr_over_time.png', bbox_inches='tight')
 
 
 def correlations(data, data2, year):
@@ -106,6 +105,9 @@ def correlations(data, data2, year):
 
 
 def main():
+    merged = state_merged(transit_data, vehicle_data, 2020)
+    print("Merged shape (rows, columns):", merged.shape)
+    print(merged.isna().sum())
     sns.set_theme()
     plot_reg_transit(transit_data, vehicle_data, 2020)
     plot_corr_over_time(transit_data, vehicle_data,)
@@ -114,8 +116,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-merged = state_merged(transit_data, vehicle_data, 2020)
-print("Merged shape (rows, columns):", merged.shape)
-print(merged.isna().sum())
