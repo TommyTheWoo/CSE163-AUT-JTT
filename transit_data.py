@@ -6,7 +6,8 @@ import seaborn as sns
 sns.set_theme()
 
 
-DATA = "September 2026 Complete Monthly Ridership (with adjustments and estimates)_261102.xlsx"
+DATA = "September 2026 Complete Monthly Ridership " \
+    "(with adjustments and estimates)_261102.xlsx"
 FIRST = 2016
 LAST = 2025
 
@@ -30,7 +31,7 @@ def state_year_totals(df: pd.DataFrame, first: int, last: int) -> pd.DataFrame:
 
 
 def plot_national_trend(table: pd.DataFrame) -> None:
-    totals = table.sum() / 1e9 #to keep the axis numbers readable
+    totals = table.sum() / 1e9  # to keep the axis numbers readable
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(totals.index, totals.values, marker="o")
     ax.set_title("Total US transit ridership by year, 2015-2025")
@@ -83,6 +84,7 @@ def main() -> None:
 
     plot_national_trend(table)
     plot_top_states(table, LAST, 10)
+    return table
 
 
 if __name__ == "__main__":

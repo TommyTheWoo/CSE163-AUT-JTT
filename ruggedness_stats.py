@@ -9,22 +9,22 @@ def read_ruggedness_data(dataset_filepath: str, sheet: str) -> pd.DataFrame:
     return pd.read_excel(dataset_filepath, sheet_name=sheet, header=1)
 
 
-def road_tri_stats(df: pd.DataFrame,
-                   state_col: str, road_tri: str) -> pd.DataFrame:
+def road_tri_stats(df: pd.DataFrame, state_col: str,
+                   road_tri: str) -> pd.DataFrame:
     road_tri_desc = (df.groupby(state_col)[road_tri].describe())
     road_stats = road_tri_desc.sort_values(by='mean', ascending=False)
     return road_stats
 
 
-def area_tri_stats(df: pd.DataFrame,
-                   state_col: str, area_tri: str) -> pd.DataFrame:
-    area_tri_desc = (df.groupby(state_col)[area_tri].describe())
+def area_tri_stats(df: pd.DataFrame, state_col: str,
+                   area_TRI: str) -> pd.DataFrame:
+    area_tri_desc = (df.groupby(state_col)[area_TRI].describe())
     area_stats = area_tri_desc.sort_values(by='mean', ascending=False)
     return area_stats
 
 
-def state_road_tri_plot(stats: pd.DataFrame,
-                        state_col: str, stat_col: str) -> None:
+def state_road_tri_plot(stats: pd.DataFrame, state_col: str,
+                        stat_col: str) -> None:
     stats = stats.reset_index()
     plt.figure(figsize=(8, 12))
     sns.scatterplot(data=stats, x=stat_col, y=state_col)
@@ -36,8 +36,8 @@ def state_road_tri_plot(stats: pd.DataFrame,
                 bbox_inches='tight')
 
 
-def state_area_tri_plot(stats: pd.DataFrame,
-                        state_col: str, stat_col: str) -> None:
+def state_area_tri_plot(stats: pd.DataFrame, state_col: str,
+                        stat_col: str) -> None:
     stats = stats.reset_index()
     plt.figure(figsize=(9, 12))
     sns.scatterplot(data=stats, x=stat_col, y=state_col)
