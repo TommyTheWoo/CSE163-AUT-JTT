@@ -32,7 +32,7 @@ def state_road_tri_plot(stats: pd.DataFrame, state_col: str,
               fontweight='bold')
     plt.ylabel('State')
     plt.xlabel('Total mean road TRI across 2020 census tracts (meters)')
-    plt.savefig('images/tri_images/scatter_plot_road_TRI.png',
+    plt.savefig('scatter_plot_road_TRI.png',
                 bbox_inches='tight')
 
 
@@ -45,7 +45,7 @@ def state_area_tri_plot(stats: pd.DataFrame, state_col: str,
               fontweight='bold')
     plt.ylabel('State')
     plt.xlabel('Total mean area TRI across 2020 census tracts (meters)')
-    plt.savefig('images/tri_images/scatter_plot_area_TRI.png',
+    plt.savefig('scatter_plot_area_TRI.png',
                 bbox_inches='tight')
 
 
