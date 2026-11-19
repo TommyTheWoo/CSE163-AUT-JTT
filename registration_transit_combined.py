@@ -9,9 +9,6 @@ import seaborn as sns
 import transit_data as td
 import vehicle_registration_data as vrd
 
-transit_data = td.main()
-vehicle_data = vrd.main()
-
 states = pd.DataFrame(
     {
         'abbr': [
@@ -64,10 +61,10 @@ def plot_reg_transit(data, data2, year):
         fuel_df = df[['z', year]].rename(columns={year: 'ridership'})
         sns.regplot(data=fuel_df, x='z', y='ridership', ax=ax, label=fuel,
                     scatter_kws={'s': 3, 'alpha': 0.6})
-    ax.set_xlabel('Share of registrations (z-score)')
-    ax.set_ylabel(f'Transit ridership, {year} (unlinked trips)')
-    ax.set_title(f'Public transit ridership against vehicle fuel type \
-                 proportions (z-scored) by state, {year}')
+    ax.set_xlabel('Registrations (z-score)')
+    ax.set_ylabel(f'Transit ridership, {year}')
+    ax.set_title('Public transit ridership against vehicle fuel type '
+                 f'proportions (z-scored) by state, {year}')
     ax.legend()
     plt.savefig('transit_registration_regression.png', bbox_inches='tight')
 
@@ -83,7 +80,7 @@ def plot_corr_over_time(data, data2):
     for fuel in ['EV', 'PHEV', 'HEV', 'Gasoline']:
         ax.plot(results.index, results[fuel], label=fuel)
     ax.set_xlabel('Year')
-    ax.set_ylabel('Pearson r (fuel share vs. transit ridership)')
+    ax.set_ylabel('Correlation')
     ax.set_title('Correlation of vehicle fuel type and ridership over time')
     ax.legend()
     plt.savefig('corr_over_time.png', bbox_inches='tight')
@@ -105,6 +102,8 @@ def correlations(data, data2, year):
 
 
 def main():
+    transit_data = td.main()
+    vehicle_data = vrd.main()
     merged = state_merged(transit_data, vehicle_data, 2020)
     print("Merged shape (rows, columns):", merged.shape)
     print(merged.isna().sum())
