@@ -34,7 +34,7 @@ def plot_national_trend(table: pd.DataFrame) -> None:
     totals = table.sum() / 1e9  # to keep the axis numbers readable
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.plot(totals.index, totals.values, marker="o")
-    ax.set_title("Total US transit ridership by year, 2015-2025")
+    ax.set_title("Total US transit ridership by year, 2016-2025")
     ax.set_xlabel("Year")
     ax.set_ylabel("Unlinked passenger trips (billions)")
     ax.set_ylim(bottom=0)
