@@ -58,6 +58,7 @@ def main():
     area_summary.to_csv('area_summary.csv')
     state_road_tri_plot(road_summary, 'StateName20', 'mean')
     state_area_tri_plot(area_summary, 'StateName20', 'mean')
+    return df
 
 
 if __name__ == '__main__':
