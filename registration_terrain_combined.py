@@ -142,9 +142,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-data = merge_data(terrain_data, vehicle_data, year)
-print("Shape:", data.shape)
-print("Number of rows:", len(data))
-print("Number of columns:", len(data.columns))
-print("Missing values:", data.isna().sum().sum())
